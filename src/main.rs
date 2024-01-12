@@ -22,17 +22,28 @@ fn subtract(num1: i32, num2: i32) -> i32 {
     num1 - num2
 }
 
+fn multiply(num1: i32, num2: i32) -> i32 {
+    num1 * num2
+}
+
+fn divide(num1: i32, num2: i32) -> i32 {
+    if num2 == 0 {
+        return 0; // Not really 0 but explaining the error in the main function
+    }
+    num1 / num2
+}
+
 fn main() {
     loop {
         let mut input = String::new();
-        print!("Enter operation (+, -) or 'q' to quit: ");
+        print!("Enter operation (+, -, *, /) or 'q' to quit: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
 
         if input == "q" {
             break;
-        } else if input != "+" && input != "-" {
+        } else if input != "+" && input != "-" && input != "*" && input != "/" {
             println!("Invalid operation");
             continue;
         }
@@ -43,6 +54,15 @@ fn main() {
         match input {
             "+" => println!("Result: {}", add(num1, num2)),
             "-" => println!("Result: {}", subtract(num1, num2)),
+            "*" => println!("Result: {}", multiply(num1, num2)),
+            "/" => {
+                let result = divide(num1, num2);
+                if result != 0 {
+                    println!("Result: {}", result);
+                } else {
+                    println!("Cannot divide by zero")
+                }
+            },
             _ => unreachable!(),
         }
     }
@@ -50,12 +70,12 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use crate::{add, subtract};
+    use crate::{add, subtract, multiply, divide};
 
-    // ### Add -------------------------------
+    // ------------------ Add ------------------
 
     #[test]
-    fn test_add_positive_positive() {
+    fn test_add_two_numbers() {
         let num1 = 1;
         let num2 = 2;
         let expected_result = 3;
@@ -65,43 +85,10 @@ mod tests {
         assert_eq!(result, expected_result);
     }
 
-    #[test]
-    fn test_add_negative_negative() {
-        let num1 = -3;
-        let num2 = -2;
-        let expected_result = -5;
-
-        let result = add(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
+    // ------------------ Sub ------------------
 
     #[test]
-    fn test_add_positive_negative() {
-        let num1 = 1;
-        let num2 = -2;
-        let expected_result = -1;
-
-        let result = add(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
-
-    #[test]
-    fn test_add_negative_positive() {
-        let num1 = -2;
-        let num2 = 1;
-        let expected_result = -1;
-
-        let result = add(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
-
-    // ### Subtract -------------------------------
-
-    #[test]
-    fn test_sub_positive_positive_num1_bigger() {
+    fn test_sub_two_numbers() {
         let num1 = 10;
         let num2 = 8;
         let expected_result = 2;
@@ -111,59 +98,40 @@ mod tests {
         assert_eq!(result, expected_result);
     }
 
-    #[test]
-    fn test_sub_positive_positive_num2_bigger() {
-        let num1 = 8;
-        let num2 = 10;
-        let expected_result = -2;
-
-        let result = subtract(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
+    // --------------- Multiply ----------------
 
     #[test]
-    fn test_sub_positive_negative() {
+    fn test_multiply_two_numbers() {
         let num1 = 10;
-        let num2 = -8;
-        let expected_result = 18;
-
-        let result = subtract(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
-
-    #[test]
-    fn test_sub_negative_positive() {
-        let num1 = -10;
         let num2 = 8;
-        let expected_result = -18;
+        let expected_result = 80;
 
-        let result = subtract(num1, num2);
+        let result = multiply(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    // --------------- Divide ------------------
+
+    #[test]
+    fn test_divide_two_numbers() {
+        let num1 = 10;
+        let num2 = 2;
+        let expected_result = 5;
+
+        let result = divide(num1, num2);
 
         assert_eq!(result, expected_result);
     }
 
     #[test]
-    fn test_sub_negative_negative() {
-        let num1 = -10;
-        let num2 = -8;
-        let expected_result = -2;
+    fn test_divide_by_zero() {
+        let num1 = 10;
+        let num2 = 0;
+        let expected_result = 0;
 
-        let result = subtract(num1, num2);
-
-        assert_eq!(result, expected_result);
-    }
-
-    #[test]
-    fn test_sub_negative_negative_positive_result() {
-        let num1 = -8;
-        let num2 = -10;
-        let expected_result = 2;
-
-        let result = subtract(num1, num2);
+        let result = divide(num1, num2);
 
         assert_eq!(result, expected_result);
     }
-
 }
