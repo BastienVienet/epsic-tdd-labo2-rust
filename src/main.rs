@@ -70,7 +70,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use crate::{add, subtract, multiply, divide};
+    use crate::{add, subtract, multiply, divide, modulo};
 
     // ------------------ Add ------------------
 
@@ -131,6 +131,19 @@ mod tests {
         let expected_result = 0;
 
         let result = divide(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    // --------------- Modulo ------------------
+
+    #[test]
+    fn test_23_modulo_4_equals_3() {
+        let num1 = 23;
+        let num2 = 4;
+        let expected_result = 3;
+
+        let result = modulo(num1, num2);
 
         assert_eq!(result, expected_result);
     }
