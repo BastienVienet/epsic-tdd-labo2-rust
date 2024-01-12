@@ -52,6 +52,8 @@ fn main() {
 mod tests {
     use crate::{add, subtract};
 
+    // ### Add -------------------------------
+
     #[test]
     fn test_add_positive_positive() {
         let num1 = 1;
@@ -95,6 +97,8 @@ mod tests {
 
         assert_eq!(result, expected_result);
     }
+
+    // ### Subtract -------------------------------
 
     #[test]
     fn test_sub_positive_positive_num1_bigger() {
