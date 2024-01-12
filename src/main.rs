@@ -47,3 +47,123 @@ fn main() {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::{add, subtract};
+
+    // ### Add -------------------------------
+
+    #[test]
+    fn test_add_positive_positive() {
+        let num1 = 1;
+        let num2 = 2;
+        let expected_result = 3;
+
+        let result = add(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_add_negative_negative() {
+        let num1 = -3;
+        let num2 = -2;
+        let expected_result = -5;
+
+        let result = add(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_add_positive_negative() {
+        let num1 = 1;
+        let num2 = -2;
+        let expected_result = -1;
+
+        let result = add(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_add_negative_positive() {
+        let num1 = -2;
+        let num2 = 1;
+        let expected_result = -1;
+
+        let result = add(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    // ### Subtract -------------------------------
+
+    #[test]
+    fn test_sub_positive_positive_num1_bigger() {
+        let num1 = 10;
+        let num2 = 8;
+        let expected_result = 2;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_sub_positive_positive_num2_bigger() {
+        let num1 = 8;
+        let num2 = 10;
+        let expected_result = -2;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_sub_positive_negative() {
+        let num1 = 10;
+        let num2 = -8;
+        let expected_result = 18;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_sub_negative_positive() {
+        let num1 = -10;
+        let num2 = 8;
+        let expected_result = -18;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_sub_negative_negative() {
+        let num1 = -10;
+        let num2 = -8;
+        let expected_result = -2;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_sub_negative_negative_positive_result() {
+        let num1 = -8;
+        let num2 = -10;
+        let expected_result = 2;
+
+        let result = subtract(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+}
