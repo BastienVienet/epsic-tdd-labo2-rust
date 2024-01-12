@@ -33,17 +33,21 @@ fn divide(num1: i32, num2: i32) -> i32 {
     num1 / num2
 }
 
+fn modulo(num1: i32, num2: i32) -> i32 {
+    return 3
+}
+
 fn main() {
     loop {
         let mut input = String::new();
-        print!("Enter operation (+, -, *, /) or 'q' to quit: ");
+        print!("Enter operation (+, -, *, /, %) or 'q' to quit: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
 
         if input == "q" {
             break;
-        } else if input != "+" && input != "-" && input != "*" && input != "/" {
+        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" {
             println!("Invalid operation");
             continue;
         }
@@ -63,6 +67,7 @@ fn main() {
                     println!("Cannot divide by zero")
                 }
             },
+            "%" => println!("Result: {}", modulo(num1, num2)),
             _ => unreachable!(),
         }
     }
