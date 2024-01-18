@@ -152,4 +152,15 @@ mod tests {
 
         assert_eq!(result, expected_result);
     }
+
+    #[test]
+    fn test_10_modulo_5_equals_0() {
+        let num1 = 10;
+        let num2 = 5;
+        let expected_result = 0;
+
+        let result = modulo(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
 }
