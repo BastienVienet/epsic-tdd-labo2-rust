@@ -163,4 +163,15 @@ mod tests {
 
         assert_eq!(result, expected_result);
     }
+
+    #[test]
+    fn test_5_modulo_minus_3_equals_minus_1() {
+        let num1 = 5;
+        let num2 = -3;
+        let expected_result = -1;
+
+        let result = modulo(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
 }
