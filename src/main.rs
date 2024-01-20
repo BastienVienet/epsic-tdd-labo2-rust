@@ -33,17 +33,24 @@ fn divide(num1: i32, num2: i32) -> i32 {
     num1 / num2
 }
 
+fn modulo(num1: i32, num2: i32) -> i32 {
+    if num2 == 0 {
+        return 0; // Returning 0 because modulo by 0 is undefined
+    }
+    ((num1 % num2) + num2) % num2
+}
+
 fn main() {
     loop {
         let mut input = String::new();
-        print!("Enter operation (+, -, *, /) or 'q' to quit: ");
+        print!("Enter operation (+, -, *, /, %) or 'q' to quit: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
 
         if input == "q" {
             break;
-        } else if input != "+" && input != "-" && input != "*" && input != "/" {
+        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" {
             println!("Invalid operation");
             continue;
         }
@@ -63,6 +70,14 @@ fn main() {
                     println!("Cannot divide by zero")
                 }
             },
+            "%" => {
+                let result = modulo(num1, num2);
+                if num2 != 0 {
+                    println!("Result: {}", result);
+                } else {
+                    println!("Cannot modulo by zero because it is undefined")
+                }
+            }
             _ => unreachable!(),
         }
     }
@@ -70,7 +85,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use crate::{add, subtract, multiply, divide};
+    use crate::{add, subtract, multiply, divide, modulo};
 
     // ------------------ Add ------------------
 
@@ -131,6 +146,41 @@ mod tests {
         let expected_result = 0;
 
         let result = divide(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    // --------------- Modulo ------------------
+
+    #[test]
+    fn test_23_modulo_4_equals_3() {
+        let num1 = 23;
+        let num2 = 4;
+        let expected_result = 3;
+
+        let result = modulo(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_10_modulo_5_equals_0() {
+        let num1 = 10;
+        let num2 = 5;
+        let expected_result = 0;
+
+        let result = modulo(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_5_modulo_minus_3_equals_minus_1() {
+        let num1 = 5;
+        let num2 = -3;
+        let expected_result = -1;
+
+        let result = modulo(num1, num2);
 
         assert_eq!(result, expected_result);
     }
