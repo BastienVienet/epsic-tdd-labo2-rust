@@ -34,6 +34,9 @@ fn divide(num1: i32, num2: i32) -> i32 {
 }
 
 fn modulo(num1: i32, num2: i32) -> i32 {
+    if num2 == 0 {
+        return 0; // Returning 0 because modulo by 0 is undefined
+    }
     ((num1 % num2) + num2) % num2
 }
 
@@ -67,7 +70,14 @@ fn main() {
                     println!("Cannot divide by zero")
                 }
             },
-            "%" => println!("Result: {}", modulo(num1, num2)),
+            "%" => {
+                let result = modulo(num1, num2);
+                if num2 != 0 {
+                    println!("Result: {}", result);
+                } else {
+                    println!("Cannot modulo by zero because it is undefined")
+                }
+            }
             _ => unreachable!(),
         }
     }
