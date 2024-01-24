@@ -85,7 +85,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use crate::{add, subtract, multiply, divide, modulo};
+    use crate::{add, subtract, multiply, divide, modulo, get_number};
 
     // ------------------ Add ------------------
 
@@ -183,5 +183,14 @@ mod tests {
         let result = modulo(num1, num2);
 
         assert_eq!(result, expected_result);
+    }
+
+    // ----------- Get Number --------------
+
+    #[test]
+    fn test_get_number_invalid_input() {
+        let result = get_number("abc\n42\n");
+
+        assert_eq!(result, 42);
     }
 }
