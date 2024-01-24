@@ -64,37 +64,23 @@ fn main() {
             continue;
         }
 
-        let num1 = match get_number("Enter first number: ", io::stdin()) {
-            Ok(n) => n,
-            Err(e) => {
-                println!("{}", e);
-                continue;
-            },
-        };
-        let num2 = match get_number("Enter second number: ", io::stdin()) {
-            Ok(n) => n,
-            Err(e) => {
-                println!("{}", e);
-                continue;
-            },
-        };
+        let num1 = get_number("Enter first number: ", io::stdin()).expect("Failed to read number");
+        let num2 = get_number("Enter second number: ", io::stdin()).expect("Failed to read number");
 
         match input {
             "+" => println!("Result: {}", add(num1, num2)),
             "-" => println!("Result: {}", subtract(num1, num2)),
             "*" => println!("Result: {}", multiply(num1, num2)),
             "/" => {
-                let result = divide(num1, num2);
-                if result != 0 {
-                    println!("Result: {}", result);
+                if num2 != 0 {
+                    println!("Result: {}", divide(num1, num2));
                 } else {
                     println!("Cannot divide by zero")
                 }
             },
             "%" => {
-                let result = modulo(num1, num2);
                 if num2 != 0 {
-                    println!("Result: {}", result);
+                    println!("Result: {}", modulo(num1, num2));
                 } else {
                     println!("Cannot modulo by zero because it is undefined")
                 }
@@ -223,4 +209,5 @@ mod tests {
         let input = Cursor::new(b"abc\nabc\nabc\n");
         let _ = get_number("Enter a number: ", input);
     }
+
 }
