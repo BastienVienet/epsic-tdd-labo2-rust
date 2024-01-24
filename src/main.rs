@@ -1,11 +1,12 @@
-use std::io::{self, Write};
+use std::io::{self, Write, Read, BufRead, BufReader};
 
-fn get_number(prompt: &str) -> i32 {
+fn get_number<R: Read>(prompt: &str, reader: R) -> i32 {
+    let mut reader = BufReader::new(reader);
     loop {
         print!("{}", prompt);
         io::stdout().flush().unwrap();
         let mut num = String::new();
-        io::stdin().read_line(&mut num).unwrap();
+        reader.read_line(&mut num).unwrap();
         match num.trim().parse::<i64>() {
             Ok(n) if n >= i64::from(i32::MIN) && n <= i64::from(i32::MAX) => return n as i32,
             Ok(_) => println!("Number out of range, please try again"),
@@ -55,8 +56,8 @@ fn main() {
             continue;
         }
 
-        let num1 = get_number("Enter first number: ");
-        let num2 = get_number("Enter second number: ");
+        let num1 = get_number("Enter first number: ", io::stdin());
+        let num2 = get_number("Enter second number: ", io::stdin());
 
         match input {
             "+" => println!("Result: {}", add(num1, num2)),
@@ -85,6 +86,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    use std::io::Cursor;
     use crate::{add, subtract, multiply, divide, modulo, get_number};
 
     // ------------------ Add ------------------
@@ -189,7 +191,8 @@ mod tests {
 
     #[test]
     fn test_get_number_invalid_input() {
-        let result = get_number("abc\n42\n");
+        let input = Cursor::new(b"abc\n42\n");
+        let result = get_number("Enter a number: ", input);
 
         assert_eq!(result, 42);
     }
