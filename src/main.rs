@@ -2,16 +2,23 @@ use std::io::{self, Write, Read, BufRead, BufReader};
 
 // The get_number function reads a line from the provided reader and tries to parse it as an i32.
 // If the input can't be parsed as an i32, it prints an error message and tries again.
-fn get_number<R: Read>(prompt: &str, reader: R) -> i32 {
+fn get_number<R: Read>(prompt: &str, reader: R) -> Result<i32, &'static str> {
     let mut reader = BufReader::new(reader);
+    let mut attempts = 0;
     loop {
+        if attempts >= 3 {
+            panic!("Maximum attempts reached");
+        }
         print!("{}", prompt);
         io::stdout().flush().unwrap();
         let mut num = String::new();
         reader.read_line(&mut num).unwrap();
         match num.trim().parse::<i32>() {
-            Ok(n) => return n,
-            Err(_) => println!("Invalid number, please try again"),
+            Ok(n) => return Ok(n),
+            Err(_) => {
+                println!("Invalid number, please try again");
+                attempts += 1;
+            },
         }
     }
 }
@@ -57,8 +64,20 @@ fn main() {
             continue;
         }
 
-        let num1 = get_number("Enter first number: ", io::stdin());
-        let num2 = get_number("Enter second number: ", io::stdin());
+        let num1 = match get_number("Enter first number: ", io::stdin()) {
+            Ok(n) => n,
+            Err(e) => {
+                println!("{}", e);
+                continue;
+            },
+        };
+        let num2 = match get_number("Enter second number: ", io::stdin()) {
+            Ok(n) => n,
+            Err(e) => {
+                println!("{}", e);
+                continue;
+            },
+        };
 
         match input {
             "+" => println!("Result: {}", add(num1, num2)),
@@ -195,7 +214,7 @@ mod tests {
         let input = Cursor::new(b"abc\n42\n");
         let result = get_number("Enter a number: ", input);
 
-        assert_eq!(result, 42);
+        assert_eq!(result, Ok(42));
     }
 
     #[test]
