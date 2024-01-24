@@ -1,5 +1,7 @@
 use std::io::{self, Write, Read, BufRead, BufReader};
 
+// The get_number function reads a line from the provided reader and tries to parse it as an i32.
+// If the input can't be parsed as an i32, it prints an error message and tries again.
 fn get_number<R: Read>(prompt: &str, reader: R) -> i32 {
     let mut reader = BufReader::new(reader);
     loop {
@@ -7,9 +9,8 @@ fn get_number<R: Read>(prompt: &str, reader: R) -> i32 {
         io::stdout().flush().unwrap();
         let mut num = String::new();
         reader.read_line(&mut num).unwrap();
-        match num.trim().parse::<i64>() {
-            Ok(n) if n >= i64::from(i32::MIN) && n <= i64::from(i32::MAX) => return n as i32,
-            Ok(_) => println!("Number out of range, please try again"),
+        match num.trim().parse::<i32>() {
+            Ok(n) => return n,
             Err(_) => println!("Invalid number, please try again"),
         }
     }
