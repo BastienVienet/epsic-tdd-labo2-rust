@@ -197,4 +197,11 @@ mod tests {
 
         assert_eq!(result, 42);
     }
+
+    #[test]
+    #[should_panic(expected = "Maximum attempts reached")]
+    fn test_get_number_max_attempts() {
+        let input = Cursor::new(b"abc\nabc\nabc\n");
+        let _ = get_number("Enter a number: ", input);
+    }
 }
