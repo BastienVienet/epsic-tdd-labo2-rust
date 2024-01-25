@@ -37,14 +37,14 @@ fn multiply(num1: i32, num2: i32) -> i32 {
 
 fn divide(num1: i32, num2: i32) -> i32 {
     if num2 == 0 {
-        return 0; // Not really 0 but explaining the error in the main function
+        panic!("attempted to divide by zero");
     }
     num1 / num2
 }
 
 fn modulo(num1: i32, num2: i32) -> i32 {
     if num2 == 0 {
-        return 0; // Returning 0 because modulo by 0 is undefined
+        panic!("attempted to divide by zero");
     }
     ((num1 % num2) + num2) % num2
 }
