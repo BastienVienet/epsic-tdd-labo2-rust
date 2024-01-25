@@ -177,6 +177,19 @@ mod tests {
         assert_eq!(result, expected_result);
     }
 
+    // --------------- Power ------------------
+
+    #[test]
+    fn test_3_power_3_equals_27() {
+        let num1 = 3;
+        let num2 = 3;
+        let expected_result = 27;
+
+        let result = power(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
     // ----------- Get Number --------------
 
     #[test]
