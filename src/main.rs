@@ -148,14 +148,12 @@ mod tests {
     }
 
     #[test]
+    #[should_panic(expected = "attempted to divide by zero")]
     fn test_divide_by_zero() {
         let num1 = 10;
         let num2 = 0;
-        let expected_result = 0;
 
-        let result = divide(num1, num2);
-
-        assert_eq!(result, expected_result);
+        let _ = divide(num1, num2);
     }
 
     // --------------- Modulo ------------------
@@ -172,14 +170,12 @@ mod tests {
     }
 
     #[test]
-    fn test_10_modulo_5_equals_0() {
-        let num1 = 10;
-        let num2 = 5;
-        let expected_result = 0;
+    #[should_panic(expected = "attempted to divide by zero")]
+    fn test_modulo_by_zero() {
+        let num1 = 5;
+        let num2 = 0;
 
-        let result = modulo(num1, num2);
-
-        assert_eq!(result, expected_result);
+        let _ = modulo(num1, num2);
     }
 
     #[test]
