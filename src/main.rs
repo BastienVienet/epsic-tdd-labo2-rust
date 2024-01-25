@@ -1,3 +1,4 @@
+use std::f32;
 use std::io::{self, Write, Read, BufRead, BufReader};
 
 // The get_number function reads a line from the provided reader and tries to parse it as an i32.
@@ -49,17 +50,21 @@ fn modulo(num1: i32, num2: i32) -> i32 {
     ((num1 % num2) + num2) % num2
 }
 
+fn power(num1: i32, num2: i32) -> f32 {
+    f32::powf(num1 as f32, num2 as f32)
+}
+
 fn main() {
     loop {
         let mut input = String::new();
-        print!("Enter operation (+, -, *, /, %) or 'q' to quit: ");
+        print!("Enter operation (+, -, *, /, %, ^) or 'q' to quit: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
 
         if input == "q" {
             break;
-        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" {
+        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" && input != "^" {
             println!("Invalid operation");
             continue;
         }
@@ -73,6 +78,7 @@ fn main() {
             "*" => println!("Result: {}", multiply(num1, num2)),
             "/" => println!("Result: {}", divide(num1, num2)),
             "%" => println!("Result: {}", modulo(num1, num2)),
+            "^" => println!("Result: {}", power(num1, num2)),
             _ => unreachable!(),
         }
     }
@@ -81,7 +87,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use std::io::Cursor;
-    use crate::{add, subtract, multiply, divide, modulo, get_number};
+    use crate::{add, subtract, multiply, divide, modulo, power, get_number};
 
     // ------------------ Add ------------------
 
@@ -173,6 +179,19 @@ mod tests {
         let expected_result = -1;
 
         let result = modulo(num1, num2);
+
+        assert_eq!(result, expected_result);
+    }
+
+    // --------------- Power ------------------
+
+    #[test]
+    fn test_3_power_3_equals_27() {
+        let num1 = 3;
+        let num2 = 3;
+        let expected_result: f32 = 27.0;
+
+        let result = power(num1, num2);
 
         assert_eq!(result, expected_result);
     }
