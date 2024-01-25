@@ -71,20 +71,8 @@ fn main() {
             "+" => println!("Result: {}", add(num1, num2)),
             "-" => println!("Result: {}", subtract(num1, num2)),
             "*" => println!("Result: {}", multiply(num1, num2)),
-            "/" => {
-                if num2 != 0 {
-                    println!("Result: {}", divide(num1, num2));
-                } else {
-                    println!("Cannot divide by zero")
-                }
-            },
-            "%" => {
-                if num2 != 0 {
-                    println!("Result: {}", modulo(num1, num2));
-                } else {
-                    println!("Cannot modulo by zero because it is undefined")
-                }
-            }
+            "/" => println!("Result: {}", divide(num1, num2)),
+            "%" => println!("Result: {}", modulo(num1, num2)),
             _ => unreachable!(),
         }
     }
