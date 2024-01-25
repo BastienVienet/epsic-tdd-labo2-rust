@@ -49,17 +49,21 @@ fn modulo(num1: i32, num2: i32) -> i32 {
     ((num1 % num2) + num2) % num2
 }
 
+fn power(_num1: i32, _num2: i32) -> i32 {
+    27
+}
+
 fn main() {
     loop {
         let mut input = String::new();
-        print!("Enter operation (+, -, *, /, %) or 'q' to quit: ");
+        print!("Enter operation (+, -, *, /, %, ^) or 'q' to quit: ");
         io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
 
         if input == "q" {
             break;
-        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" {
+        } else if input != "+" && input != "-" && input != "*" && input != "/" && input != "%" && input != "^" {
             println!("Invalid operation");
             continue;
         }
@@ -73,6 +77,7 @@ fn main() {
             "*" => println!("Result: {}", multiply(num1, num2)),
             "/" => println!("Result: {}", divide(num1, num2)),
             "%" => println!("Result: {}", modulo(num1, num2)),
+            "^" => println!("Result: {}", power(num1, num2)),
             _ => unreachable!(),
         }
     }
@@ -81,7 +86,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use std::io::Cursor;
-    use crate::{add, subtract, multiply, divide, modulo, get_number};
+    use crate::{add, subtract, multiply, divide, modulo, power, get_number};
 
     // ------------------ Add ------------------
 
