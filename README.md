@@ -13,4 +13,4 @@ Le tableau ci-dessous indique le statut acutel uniquement de la branche `main`.
 
 | Branch Name | Tests Status |
 | ------- | ------- |
-| [`BastienVienet/epsic-tdd-labo2-rust`](https://github.com/BastienVienet/epsic-tdd-labo2-rust/tree/main) | [![Rust Tests](https://github.com/BastienVienet/epsic-tdd-labo2-rust/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/BastienVienet/epsic-tdd-labo2-rust/actions/workflows/rust.yml) |
+| [`epsic-tdd-labo2-rust/main`](https://github.com/BastienVienet/epsic-tdd-labo2-rust/tree/main) | [![Rust Tests](https://github.com/BastienVienet/epsic-tdd-labo2-rust/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/BastienVienet/epsic-tdd-labo2-rust/actions/workflows/rust.yml) |
