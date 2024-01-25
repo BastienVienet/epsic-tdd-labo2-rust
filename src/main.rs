@@ -1,3 +1,4 @@
+use std::f32;
 use std::io::{self, Write, Read, BufRead, BufReader};
 
 // The get_number function reads a line from the provided reader and tries to parse it as an i32.
@@ -49,8 +50,8 @@ fn modulo(num1: i32, num2: i32) -> i32 {
     ((num1 % num2) + num2) % num2
 }
 
-fn power(_num1: i32, _num2: i32) -> i32 {
-    27
+fn power(num1: i32, num2: i32) -> f32 {
+    f32::powf(num1 as f32, num2 as f32)
 }
 
 fn main() {
@@ -188,7 +189,7 @@ mod tests {
     fn test_3_power_3_equals_27() {
         let num1 = 3;
         let num2 = 3;
-        let expected_result = 27;
+        let expected_result: f32 = 27.0;
 
         let result = power(num1, num2);
 
